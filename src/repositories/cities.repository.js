@@ -9,7 +9,12 @@ async function cityByName(name) {
     return result.rows[0];
 }
 
+async function cityById(id) {
+    const result = await db.query("SELECT * FROM cities WHERE id = $1", [id]);
+    return result.rows[0];
+}
 
-const citiesRepository = { newCity, cityByName } ;
+
+const citiesRepository = { newCity, cityByName, cityById } ;
 
 export default citiesRepository;
