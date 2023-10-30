@@ -1,6 +1,5 @@
 import flightsService from "../services/flights.service.js";
 import httpStatus from "http-status";
-import dayjs from "dayjs";
 
 export async function postFlights(req, res) {
     const { origin, destination, date } = req.body;
@@ -10,7 +9,7 @@ export async function postFlights(req, res) {
 }
 
 export async function getFlights(req, res) {
-    const {origin, destination} = req.query;
+    const { origin, destination } = req.query;
 
     const allFlights = await flightsService.getFlight(origin, destination);
     res.status(httpStatus.OK).send(allFlights)

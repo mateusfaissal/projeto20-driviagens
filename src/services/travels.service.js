@@ -3,12 +3,12 @@ import passengersRepository from "../repositories/passengers.repository.js";
 import flightsRepository from "../repositories/flights.repository.js"
 
 async function createTravel(passengerId, flightId) {
-   const validatePassenger = await checkPassengerId(passengerId);
-   const validateFlight = await checkFlightId(flightId);
+    const validatePassenger = await checkPassengerId(passengerId);
+    const validateFlight = await checkFlightId(flightId);
 
-   if (!validatePassenger || !validateFlight) throw { type: "notFound", message: "Invalid passenger or flight"};
-   
-   return await travelsRepository.newTravel(passengerId, flightId)
+    if (!validatePassenger || !validateFlight) throw { type: "notFound", message: "Invalid passenger or flight" };
+
+    return await travelsRepository.newTravel(passengerId, flightId)
 }
 
 async function checkPassengerId(passengerId) {
@@ -27,7 +27,10 @@ async function checkFlightId(flightId) {
     return false;
 }
 
+async function getTravels(name) {
+    return name ? await travelsRepository.getTravelsWithFilter(name) : await travelsRepository.getTravels();
+}
 
-const travelsService = { createTravel };
+const travelsService = { createTravel, getTravels };
 
 export default travelsService;

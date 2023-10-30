@@ -9,6 +9,6 @@ async function passengerById(id) {
     return result.rows[0];
 }
 
-const passengersRepository = { newPassenger, passengerById } ;
+const passengersRepository = { newPassenger, passengerById };
 
 export default passengersRepository;

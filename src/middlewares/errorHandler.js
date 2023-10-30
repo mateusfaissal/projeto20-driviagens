@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 
 export default function errorHandler(err, req, res, next) {
     console.log(err);
-    switch(err.type) {
+    switch (err.type) {
         case "notFound":
             return res.status(httpStatus.NOT_FOUND).send(err.message);
         case "conflict":

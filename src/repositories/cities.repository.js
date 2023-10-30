@@ -15,6 +15,6 @@ async function cityById(id) {
 }
 
 
-const citiesRepository = { newCity, cityByName, cityById } ;
+const citiesRepository = { newCity, cityByName, cityById };
 
 export default citiesRepository;
