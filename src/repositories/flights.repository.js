@@ -9,6 +9,43 @@ async function flightById(id) {
     return result.rows[0];
 }
 
-const flightsRepository = { newFlight, flightById} ;
+async function getAllFlights(origin, destination) {
+    const conditions = [];
+    const values = [];
+
+    if (origin) {
+        conditions.push(`ori.name = $${values.length + 1}`);
+        values.push(origin);
+    }
+
+    if (destination) {
+        conditions.push(`dest.name = $${values.length + 1}`);
+        values.push(destination);
+    }
+
+    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
+
+    const query = `
+        SELECT 
+            f.id, 
+            ori.name AS origin, 
+            dest.name AS destination, 
+            TO_CHAR(f.date, 'DD-MM-YYYY') AS date
+        FROM 
+            flights f
+        JOIN 
+            cities ori ON f.origin = ori.id
+        JOIN 
+            cities dest ON f.destination = dest.id
+        ${whereClause}
+        ORDER BY f.date
+    `;
+
+    const result = await db.query(query, values);
+    return result.rows;
+}
+
+
+const flightsRepository = { newFlight, flightById, getAllFlights };
 
 export default flightsRepository;

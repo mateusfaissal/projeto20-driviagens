@@ -25,6 +25,10 @@ async function checkOrigin (cityId) {
     return false;
 }
 
-const flightsService = { createFlight };
+async function getFlight(origin, destination) {
+     return await flightsRepository.getAllFlights(origin, destination);
+}
+
+const flightsService = { createFlight, getFlight };
 
 export default flightsService;
